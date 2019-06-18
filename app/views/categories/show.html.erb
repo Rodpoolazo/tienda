@@ -12,23 +12,24 @@
 <% @category.products.each do |product|%>
   <li>
     <%= product.name %>
+    <%= product.price %>
     <%= link_to "x", category_product_path(@category, product), method: :delete %>
   </li>
  <% end %>
 </ul>
 
-<%= form_with(model: [ @category, @product ]) do |form| %>
+<%= form_with(model: [ @category, @product ], local:true) do |form| %>
 <%= form.hidden_field :category_id, value: @category.id %>
 
   <div class="field">
-     <%= form.label :name %>
+     <%= form.label :name, "Nombre de Producto" %>
      <%= form.text_field :name, id: :product_name %>
-     <%= form.label :price %>
-     <%= form.integer_field :price, id: :product_price %>
+     <%= form.label :price, "Precio del Producto" %>
+     <%= form.number_field :price, id: :product_price, min: 0 %>
   </div>
 
   <div class="actions">
-      <%= form.submit %>
+      <%= form.submit "Ingresar Producto" %>
     </div>
 
 <% end %>
